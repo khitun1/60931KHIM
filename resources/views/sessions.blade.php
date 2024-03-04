@@ -8,7 +8,7 @@
     <title>609-31</title>
 </head>
 <body>
-<h2>Список фильмов</h2>
+<h2>Список сеансов</h2>
 <table border="1">
     <thead>
     <td>id</td>
