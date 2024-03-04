@@ -20,3 +20,8 @@ Route::get('/', function () {
 Route::get('/hello', function () {
     return view('hello', ['title' => 'Hello world!']);
 });
+
+Route::get('/films', [\App\Http\Controllers\FilmController::class, 'index']);
+Route::get('/films/{id}', [\App\Http\Controllers\FilmController::class, 'show']);
+Route::get('/sessions', [\App\Http\Controllers\SessionController::class, 'index']);
+Route::get('/hall/{id}', [\App\Http\Controllers\HallController::class, 'show']);

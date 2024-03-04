@@ -11,9 +11,13 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('hall', function (Blueprint $table) {
+        Schema::create('places', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
+            $table->unsignedBigInteger('hall_id');
+            $table->foreign('hall_id')->references('id')->on('halls');
+            $table->unsignedInteger('place_row');
+            $table->unsignedInteger('place_number');
+            $table->string('price_category');
             $table->timestamps();
         });
     }
@@ -23,6 +27,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('hall');
+        Schema::dropIfExists('places');
     }
 };
