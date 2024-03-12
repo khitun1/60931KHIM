@@ -25,3 +25,8 @@ Route::get('/films', [\App\Http\Controllers\FilmController::class, 'index']);
 Route::get('/films/{id}', [\App\Http\Controllers\FilmController::class, 'show']);
 Route::get('/sessions', [\App\Http\Controllers\SessionController::class, 'index']);
 Route::get('/hall/{id}', [\App\Http\Controllers\HallController::class, 'show']);
+Route::get('/session/create', [\App\Http\Controllers\SessionController::class, 'create']);
+Route::post('/session', [\App\Http\Controllers\SessionController::class, 'store']);
+Route::get('/session/edit/{id}', [\App\Http\Controllers\SessionController::class, 'edit']);
+Route::post('/session/update/{id}', [\App\Http\Controllers\SessionController::class, 'update']);
+Route::get('/session/destroy/{id}', [\App\Http\Controllers\SessionController::class, 'destroy']);

@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Film;
+use App\Models\Hall;
 use App\Models\Session;
 use Illuminate\Http\Request;
 
@@ -20,7 +22,7 @@ class SessionController extends Controller
      */
     public function create()
     {
-        //
+        return view('session_create', ['halls' => Hall::all(), 'films' => Film::all()]);
     }
 
     /**
@@ -28,7 +30,13 @@ class SessionController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $validated = $request->validate([
+            'film_id' => 'integer',
+            'hall_id' => 'integer',
+            'beginning' => 'required']);
+        $session = new Session($validated);
+        $session->save();
+        return redirect('/sessions');
     }
 
     /**
@@ -44,7 +52,11 @@ class SessionController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        return view('session_edit', [
+           'session' => Session::all()->where('id', $id)->first(),
+            'halls' => Hall::all(),
+            'films' => Film::all()
+        ]);
     }
 
     /**
@@ -52,7 +64,16 @@ class SessionController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        $validated = $request->validate([
+            'film_id' => 'integer',
+            'hall_id' => 'integer',
+            'beginning' => 'required']);
+        $session = Session::all()->where('id', $id)->first();
+        $session->film_id = $validated['film_id'];
+        $session->hall_id = $validated['hall_id'];
+        $session->beginning = $validated['beginning'];
+        $session->save();
+        return redirect('/sessions');
     }
 
     /**
@@ -60,6 +81,7 @@ class SessionController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        Session::destroy($id);
+        return redirect('/sessions');
     }
 }

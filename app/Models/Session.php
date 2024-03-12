@@ -11,6 +11,7 @@ use Illuminate\Database\Eloquent\Relations\HasOne;
 class Session extends Model
 {
     use HasFactory;
+    protected $fillable = ['film_id', 'hall_id', 'beginning'];
     public function hall() : BelongsTo
     {
         return $this->belongsTo(Hall::class);

@@ -12,16 +12,26 @@
 <table border="1">
     <thead>
     <td>id</td>
-    <td>Начало</td>
     <td>Название фильма</td>
+    <td>Начало</td>
+    <td>Зал</td>
+    <td>Действия</td>
     </thead>
     @foreach($sessions as $session)
         <tr>
             <td>{{$session->id}}</td>
-            <td>{{$session->beginning}}</td>
             <td>{{$session->film->name}}</td>
+            <td>{{$session->beginning}}</td>
+            <td>{{$session->hall->name}}</td>
+            <td>
+                <a href="{{url('session/destroy/'.$session->id)}}">Удалить</a>
+                <a href="{{url('session/edit/'.$session->id)}}">Редактировать</a>
+            </td>
         </tr>
     @endforeach
 </table>
+<button>
+    <a href="{{url('session/create')}}">Создать</a>
+</button>
 </body>
 </html>
