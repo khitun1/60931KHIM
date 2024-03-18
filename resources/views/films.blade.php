@@ -21,5 +21,6 @@
             </tr>
         @endforeach
     </table>
+    {{ $films->links() }}
 </body>
 </html>

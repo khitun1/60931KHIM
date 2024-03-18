@@ -10,9 +10,10 @@ class FilmController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        return view('films', ['films' => Film::all()]);
+        $perpage = $request->perpage ?? 2;
+        return view('films', ['films' => Film::paginate($perpage)->withQueryString()]);
     }
 
     /**
