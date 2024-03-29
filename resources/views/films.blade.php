@@ -8,6 +8,8 @@
     <title>609-31</title>
 </head>
 <body>
+    @extends('layout')
+    @section('content')
     <h2>Список фильмов</h2>
     <table border="1">
         <thead>
@@ -22,5 +24,6 @@
         @endforeach
     </table>
     {{ $films->links() }}
+    @endsection
 </body>
 </html>

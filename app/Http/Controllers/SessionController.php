@@ -7,6 +7,7 @@ use App\Models\Hall;
 use App\Models\Session;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Gate;
+use function Laravel\Prompts\alert;
 
 class SessionController extends Controller
 {
@@ -83,11 +84,13 @@ class SessionController extends Controller
     public function destroy(string $id)
     {
         if (! Gate::allows('destroy-session', Session::all()->where('id', $id)->first())) {
-            return redirect('/error')->with('message', 'У вас нет разрешения на удаление сенаса
+            return redirect('/login')->with('message', 'У вас нет разрешения на удаление сенаса
              номер ' . $id);
         }
 
         Session::destroy($id);
-        return redirect('/sessions');
+        return redirect()->intended('/sessions')->withErrors([
+            'success' => 'Сеанс успешно удален',
+        ]);
     }
 }

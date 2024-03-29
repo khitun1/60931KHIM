@@ -9,50 +9,68 @@
         .invalid {
             color: red;
         }
+        .form {
+            margin-left: 30%;
+        }
+        h2 {
+            margin-left: 45%;
+        }
     </style>
     <title>609-31</title>
 </head>
 <body>
+    @extends('layout')
+    @section('content')
     <h2>Добавление сеанса</h2>
-    <form method="post" action={{url('session')}}>
-        @csrf
-        <label>Название фильма: </label>
-        <select name="film_id" value="{{old('film_id')}}">
-            @foreach($films as $film)
-                <option value="{{$film->id}}"
-                @if(old('film_id') == $film->id)
-                     selected
-                @endif>
-                    {{$film->name}}
-                </option>
-            @endforeach
-        </select>
-        @error('film_id')
-        <div class="invalid">{{$message}}</div>
-        @enderror
-        <br>
-        <label>Зал: </label>
-        <select name="hall_id" value="{{old('hall_id')}}">
-            @foreach($halls as $hall)
-                <option value="{{$hall->id}}"
-                        @if(old('hall_id') == $hall->id)
-                            selected
-                    @endif>
-                    {{$hall->name}}
-                </option>
-            @endforeach
-        </select>
-        @error('hall_id')
-        <div class="invalid">{{$message}}</div>
-        @enderror
-        <br>
-        <label>Дата и время: </label>
-        <input type="datetime-local" name="beginning" value="{{old('beginning')}}"/>
-        @error('beginning')
-        <div class="invalid">{{$message}}</div>
-        @enderror
-        <br>
-        <input type="submit" value="Создать">
+    <form method="post" class="w-50 form" action={{url('session')}} >
+        <div class="mb-3">
+            @csrf
+            <label class="form-label">Название фильма: </label>
+            <select class="form-select"
+                name="film_id" value="{{old('film_id')}}">
+                @foreach($films as $film)
+                    <option value="{{$film->id}}"
+                            @if(old('film_id') == $film->id)
+                                selected
+                        @endif>
+                        {{$film->name}}
+                    </option>
+                @endforeach
+            </select>
+        </div>
+            @error('film_id')
+            <div class="invalid">{{$message}}</div>
+            @enderror
+            <br>
+        <div class="mb-3">
+            <label class="form-label">Зал: </label>
+            <select class="form-select"
+                name="hall_id" value="{{old('hall_id')}}">
+                @foreach($halls as $hall)
+                    <option value="{{$hall->id}}"
+                            @if(old('hall_id') == $hall->id)
+                                selected
+                        @endif>
+                        {{$hall->name}}
+                    </option>
+                @endforeach
+            </select>
+        </div>
+            @error('hall_id')
+            <div class="invalid">{{$message}}</div>
+            @enderror
+            <br>
+        <div class="mb-3">
+            <label class="form-label">Дата и время: </label>
+            <input type="datetime-local" class="form-control"
+                   name="beginning" value="{{old('beginning')}}"/>
+            @error('beginning')
+            <div class="invalid">{{$message}}</div>
+            @enderror
+            <br>
+            <button type="submit" class="btn btn-primary">Создать</button>
+        </div>
     </form>
 </body>
+@endsection
 </html>

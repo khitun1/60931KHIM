@@ -8,6 +8,8 @@
     <title>609-31</title>
 </head>
 <body>
+    @extends('layout')
+    @section('content')
 <h2>Список сеансов</h2>
 <table border="1">
     <thead>
@@ -24,14 +26,19 @@
             <td>{{$session->beginning}}</td>
             <td>{{$session->hall->name}}</td>
             <td>
-                <a href="{{url('session/destroy/'.$session->id)}}">Удалить</a>
-                <a href="{{url('session/edit/'.$session->id)}}">Редактировать</a>
+                <button type="button" class="btn btn-outline-primary">
+                    <a class="" href="{{url('session/destroy/'.$session->id)}}">Удалить</a>
+                </button>
+                <button type="button" class="btn btn-outline-primary">
+                    <a href="{{url('session/edit/'.$session->id)}}">Редактировать</a>
+                </button>
             </td>
         </tr>
     @endforeach
 </table>
-<button>
+<button type="button" class="btn btn-outline-secondary">
     <a href="{{url('session/create')}}">Создать</a>
 </button>
+    @endsection
 </body>
 </html>
