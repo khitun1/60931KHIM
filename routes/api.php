@@ -17,3 +17,8 @@ use Illuminate\Support\Facades\Route;
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
+Route::get('/hall', [\App\Http\Controllers\HallControllerApi::class, 'index']);
+Route::get('/hall/{id}', [\App\Http\Controllers\HallControllerApi::class, 'show']);
+Route::get('/film', [\App\Http\Controllers\FilmControllerApi::class, 'index']);
+Route::get('/place', [\App\Http\Controllers\PlaceControllerApi::class, 'index']);
+Route::get('/place/{id}', [\App\Http\Controllers\PlaceControllerApi::class, 'show']);
