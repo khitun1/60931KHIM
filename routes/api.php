@@ -20,14 +20,17 @@ Route::group(['middleware' => ['auth:sanctum']], function() {
     Route::get('/user', function (Request $request) {
         return $request->user();
     });
-    Route::get('/hall', [\App\Http\Controllers\HallControllerApi::class, 'index']);
+
     Route::get('/logout', [\App\Http\Controllers\AuthController::class, 'logout']);
+
 
 });
 
-
+Route::get('/hall', [\App\Http\Controllers\HallControllerApi::class, 'index']);
+Route::get('/hall_total', [\App\Http\Controllers\HallControllerApi::class, 'total']);
 Route::get('/hall/{id}', [\App\Http\Controllers\HallControllerApi::class, 'show']);
 Route::get('/film', [\App\Http\Controllers\FilmControllerApi::class, 'index']);
+Route::get('/film_total', [\App\Http\Controllers\FilmControllerApi::class, 'total']);
 Route::get('/place', [\App\Http\Controllers\PlaceControllerApi::class, 'index']);
 Route::get('/place/{id}', [\App\Http\Controllers\PlaceControllerApi::class, 'show']);
 Route::post('/login', [\App\Http\Controllers\AuthController::class, 'login']);

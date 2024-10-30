@@ -10,11 +10,17 @@ class FilmControllerApi extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        return response(Film::all());
+        return response(Film::limit($request->perpage ?? 5)
+            ->offset(($request->perpage ?? 5) * ($request->page ?? 0))
+            ->get());
     }
 
+    public function total()
+    {
+        return response(Film::all()->count());
+    }
     /**
      * Store a newly created resource in storage.
      */
