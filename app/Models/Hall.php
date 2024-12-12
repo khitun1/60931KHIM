@@ -10,6 +10,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 class Hall extends Model
 {
     use HasFactory;
+    protected $fillable = ['name', 'picture_url'];
     public function places() : HasMany
     {
         return $this->hasMany(Place::class);

@@ -22,7 +22,7 @@ Route::group(['middleware' => ['auth:sanctum']], function() {
     });
 
     Route::get('/logout', [\App\Http\Controllers\AuthController::class, 'logout']);
-
+    Route::post('/hallPicture', [\App\Http\Controllers\HallControllerApi::class, 'store']);
 
 });
 

@@ -3,7 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Models\Hall;
+use Exception;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Gate;
+use Illuminate\Support\Facades\Storage;
 
 class HallControllerApi extends Controller
 {
@@ -27,7 +30,38 @@ class HallControllerApi extends Controller
      */
     public function store(Request $request)
     {
-        //
+        if (! Gate::allows('create-hall')) {
+            return response()->json([
+                'code' => 1,
+                'message' => 'No access to add a hall',
+            ]);
+        }
+        $validated = $request->validate([
+            'name' => 'required|unique:halls|max:255',
+            'image' => 'required|file'
+        ]);
+
+        $file = $request->file('image');
+        $filename = rand(1, 100000). '_' . $file->getClientOriginalName();
+        try {
+            $path = Storage::disk('s3')->putFileAs('hall_images', $file, $filename);
+            $fileUrl = Storage::disk('s3')->url($path);
+        } catch (Exception $e) {
+            echo $e;
+            return response()->json([
+                'code' => 2,
+                'message' => 'Upload error',
+            ]);
+        };
+
+        $hall = new Hall($validated);
+
+        $hall->picture_url = $fileUrl;
+        $hall->save();
+        return response()->json([
+            'code' => 0,
+            'message' => 'Successfully',
+        ]);
     }
 
     /**
